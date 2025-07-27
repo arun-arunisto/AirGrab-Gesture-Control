@@ -1,0 +1,20 @@
+from src.gesture_detector import GestureDetector
+import cv2
+
+detector = GestureDetector()
+
+cap = cv2.VideoCapture(0)
+
+while True:
+    success, frame = cap.read()
+    frame, gesture = detector.detect_gesture(frame)
+
+    if gesture:
+        cv2.putText(frame, gesture, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 3)
+    
+    cv2. imshow("Gesture Detection", frame)
+    if cv2.waitKey(1) == ord("q"):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
