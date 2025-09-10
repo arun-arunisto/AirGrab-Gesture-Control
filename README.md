@@ -49,7 +49,7 @@ A Python-based **gesture recognition system** to perform copy-paste actions and 
 
 ### ✅ **Tech Stack**
 
-* **Language:** Python
+* **Language:** Python (version 3.11.5)
 * **Libraries:** MediaPipe, OpenCV, pyautogui, pyperclip
 * **Networking:** Python Sockets
 * **UI Framework:** Tkinter / PyQt
@@ -73,9 +73,8 @@ airgrab-gesture-control/
 ├── assets/
 │   └── screenshots/           # UI previews
 ├── tests/
-│   └── test_gesture.py
-└── docs/
-    └── roadmap.md
+    └── test_gesture.py
+
 ```
 
 ---
