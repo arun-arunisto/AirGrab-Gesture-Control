@@ -6,13 +6,16 @@ A Python-based **gesture recognition system** to perform copy-paste actions and 
 
 ### ✅ **Project Roadmap**
 
-#### **Phase 1: Gesture Detection**
+#### **Phase 1: Gesture Detection & Distance**
 
 * [ ] Setup Python virtual environment.
 * [ ] Install dependencies (`opencv-python`, `mediapipe`, `pyautogui`, `pyperclip`).
 * [ ] Implement **Open Hand detection**.
 * [ ] Implement **Full Grab (Fist) detection**.
 * [ ] Display gesture feedback on screen.
+* [ ] Calculate the distance b/w screen and hand
+* [ ] Implement **Move Closer** or **Move Further**
+* [ ] Display distance log on screen.
 
 #### **Phase 2: Gesture → Action Mapping**
 
