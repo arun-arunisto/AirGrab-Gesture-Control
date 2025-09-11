@@ -32,10 +32,10 @@ class GestureDetector:
                 distances = [self._distance(handlms.landmark[tip], handlms.landmark[base])for tip, base in zip(tips, bases)]
                 print(distances)
                 # conditions to check if its a full grab or open hand
-                if all(d < 0.05 for d in distances):
-                    gesture = "FULL_GRAB"
-                elif all(d > 0.08 for d in distances):
-                    gesture = "OPEN_HAND"
+                if all(d < 0.08 for d in distances):
+                    gesture = "FULL GRAB"
+                elif all(d > 0.2 for d in distances):
+                    gesture = "OPEN HAND"
                 else:
                     gesture = "UNKNOWN"
         return frame, gesture
