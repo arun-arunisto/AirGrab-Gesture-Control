@@ -7,6 +7,7 @@ flatbuffers==25.2.10
 fonttools==4.59.0
 jax==0.7.0
 jaxlib==0.7.0
+keyboard==0.13.5
 kiwisolver==1.4.8
 matplotlib==3.10.3
 mediapipe==0.10.14
@@ -28,6 +29,7 @@ pyperclip==1.9.0
 PyRect==0.2.0
 PyScreeze==1.0.1
 python-dateutil==2.9.0.post0
+python3-xlib==0.15
 pytweening==1.2.0
 scipy==1.16.0
 sentencepiece==0.2.0

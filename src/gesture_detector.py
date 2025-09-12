@@ -41,7 +41,7 @@ class GestureDetector:
                 perceived_width = self._pixel_distance(handlms.landmark[5], handlms.landmark[17], w, h)
                 
                 distance_cm = (self.known_width*self.focal_length)/perceived_width
-                print(distance_cm)
+                # print(distance_cm)
                 tips = [8, 12, 16, 20] # index, Middle, Ring, Pinky tips
                 bases = [5, 9, 13, 17] # base joints
 
