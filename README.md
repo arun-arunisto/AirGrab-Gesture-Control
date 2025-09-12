@@ -17,8 +17,24 @@ A Python-based **gesture recognition system** to perform copy-paste actions and 
 * [ ] Implement **Move Closer** or **Move Further**
 * [ ] Display distance log on screen.
 
-#### **Phase 2: Gesture → Action Mapping**
+### Phase 2: Action Mapping
 
+* [ ] Define gesture → action transitions (copy & paste).
+* [ ] Implement **cross-platform action mapper**:
+
+  * Detect OS (`sys.platform`).
+  * On Linux, detect display server (`XDG_SESSION_TYPE` = `"x11"` or `"wayland"`).
+  * Pick backend:
+
+    * Windows → `pynput`
+    * Linux + Xorg → `pynput`
+    * Linux + Wayland → `ydotool`
+    * macOS → `pynput`
+* [ ] Map gestures:
+
+  * OPEN → GRAB → **COPY (Ctrl+A, Ctrl+C)**
+  * GRAB → OPEN → **PASTE (Ctrl+V)**
+* [ ] Add testing stubs in `tests/test_action_mapper.py`.
 * [ ] Map **Grab → Copy**, **Open Hand → Paste** using `pyautogui`.
 * [ ] Test on **Windows** and **Ubuntu**.
 
