@@ -1,10 +1,12 @@
 from src.gesture_detector import GestureDetector
 from src.action_mapper import ActionMapper
 import cv2
+from src.sync_portal import start_server
 
 
 detector = GestureDetector()
 mapper = ActionMapper()
+start_server()
 
 cap = cv2.VideoCapture(0)
 

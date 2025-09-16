@@ -1,14 +1,19 @@
+import asyncio
 import sys
 import os
 import subprocess
+import pyperclip
 from pynput.keyboard import Controller, Key
+from src.sync_portal import send_copy, send_paste
 
 
 class ActionMapper:
-    def __init__(self):
+    def __init__(self, server_ip="127.0.0.1", port=8765):
         self.last_gesture = None # for tracking previous gesture
         self.backend = self._detect_backend()
         self.keyboard = Controller()
+        self.server_ip = server_ip
+        self.port = port
     
 
     def _detect_backend(self):
@@ -38,7 +43,7 @@ class ActionMapper:
             # if open_hand -> full_grab ---> (select all + copy)
             print("last gesture:", self.last_gesture, "current gesture:", gesture)
             if self.last_gesture == "OPEN HAND" and gesture == "FULL GRAB":
-                self.select_and_cut()
+                self.select_and_copy()
                 action = "SELECT & COPY"
             
             # if full_grab -> open hand ---> paste
@@ -72,8 +77,19 @@ class ActionMapper:
             subprocess.run(["ydotool", "key", "ctrl+a"])
             #ctrl + c
             subprocess.run(["ydotool", "key", "ctrl+c"])
+        
+        #fetching copied content
+        copied_text = pyperclip.paste()
+        print("Copied text:",copied_text)
+
+        # send to server
+        asyncio.run(send_copy(copied_text, self.server_ip, self.port))
     
     def paste(self):
+        # fetch from server
+        text = asyncio.run(send_paste(self.server_ip, self.port))
+        # puting into clipboard locally
+        pyperclip.copy(text)
         if self.backend == "pynput":
             # ctrl + v
             with self.keyboard.pressed(Key.ctrl):
