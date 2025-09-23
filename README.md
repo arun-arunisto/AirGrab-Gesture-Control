@@ -80,12 +80,11 @@ airgrab-gesture-control/
 ├── src/
 │   ├── main.py                # Entry point
 │   ├── gesture_detector.py    # Handles MediaPipe detection
-│   ├── action_mapper.py       # Maps gestures to actions (copy/paste)
-│   ├── clipboard_sync.py      # Handles socket communication
-│   └── utils.py               # Helper functions
-├── assets/
-│   └── screenshots/           # UI previews
+│   ├── action_mapper.py       # Maps gestures to actions (copy/paste) 
+│   └── sync_portal.py         # Handles socket communication
 ├── tests/
+    ├── test_action_mapper.py  
+    ├── test_sync_portal.py              
     └── test_gesture.py
 
 ```
