@@ -33,6 +33,56 @@ class ActionMapper:
                 return "pynput" # assume xorg
         return "pynput" #fallback
     
+    # ------------------------
+    # Clipboard handling
+    # ------------------------
+    def _get_clipboard(self):
+        """Cross-platform clipboard read"""
+        platform = sys.platform
+        session_type = os.environ.get("XDG_SESSION_TYPE", "").lower()
+
+        try:
+            if platform.startswith("win"):
+                import win32clipboard
+
+                win32clipboard.OpenClipboard()
+                data = win32clipboard.GetClipboardData()
+                win32clipboard.CloseClipboard()
+                return data
+            elif platform == "darwin":
+                return subprocess.check_output("pbpaste").decode()
+            elif platform.startswith("linux"):
+                if session_type == "wayland":
+                    return subprocess.check_output(["wl-paste"]).decode()
+                else:
+                    return subprocess.check_output(["xclip", "-selection", "clipboard", "-o"]).decode()
+        except Exception as e:
+            print("Clipboard read failed:", e)
+            return ""
+
+    def _set_clipboard(self, text):
+        """Cross-platform clipboard write"""
+        platform = sys.platform
+        session_type = os.environ.get("XDG_SESSION_TYPE", "").lower()
+
+        try:
+            if platform.startswith("win"):
+                import win32clipboard
+
+                win32clipboard.OpenClipboard()
+                win32clipboard.EmptyClipboard()
+                win32clipboard.SetClipboardText(text)
+                win32clipboard.CloseClipboard()
+            elif platform == "darwin":
+                subprocess.run("pbcopy", text=True, input=text)
+            elif platform.startswith("linux"):
+                if session_type == "wayland":
+                    subprocess.run(["wl-copy"], input=text.encode())
+                else:
+                    subprocess.run(["xclip", "-selection", "clipboard"], input=text.encode())
+        except Exception as e:
+            print("Clipboard write failed:", e)
+    
     def perform_action(self, gesture, distance_cm=None):
         """
         Trigger actions based on gesture transitions.
@@ -62,7 +112,7 @@ class ActionMapper:
     
     # it will select all the content from text editor
     def select_and_copy(self):
-        if self.backend == "pynnput":
+        if self.backend == "pynput":
             # ctrl + A
             with self.keyboard.pressed(Key.ctrl):
                 self.keyboard.press("a")
@@ -79,7 +129,7 @@ class ActionMapper:
             subprocess.run(["ydotool", "key", "ctrl+c"])
         
         #fetching copied content
-        copied_text = pyperclip.paste()
+        copied_text = self._get_clipboard()
         print("Copied text:",copied_text)
 
         # send to server
@@ -89,7 +139,7 @@ class ActionMapper:
         # fetch from server
         text = asyncio.run(send_paste(self.server_ip, self.port))
         # puting into clipboard locally
-        pyperclip.copy(text)
+        self._set_clipboard(text)
         if self.backend == "pynput":
             # ctrl + v
             with self.keyboard.pressed(Key.ctrl):
