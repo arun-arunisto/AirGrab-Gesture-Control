@@ -40,24 +40,18 @@ A Python-based **gesture recognition system** to perform copy-paste actions and 
 
 #### **Phase 3: Remote Clipboard Sync**
 
-* [ ] Build **Socket Server** (Ubuntu) and **Client** (Windows).
-* [ ] Send copied text from Windows → Ubuntu.
-* [ ] Auto-paste into **Gedit** or **Notepad**.
+* [X] Build **Socket Server** (Ubuntu) and **Client** (Windows).
+* [X] Send copied text from Windows → Ubuntu.
+* [X] Auto-paste into **Gedit** or **Notepad**.
 
-#### **Phase 4: GUI & Settings**
+#### **Phase 4: Packaging & Deployment**
 
-* [ ] Create **Start/Stop detection** GUI (Tkinter or PyQt).
-* [ ] Add **IP configuration field** for remote sync.
-* [ ] Add status indicators (Connected / Disconnected).
-
-#### **Phase 5: Packaging & Deployment**
-
-* [ ] Create `requirements.txt`.
+* [X] Create `requirements.txt`.
 * [ ] Add **setup.py** for easy installation.
 * [ ] Add **screenshots** and **usage guide** to `README.md`.
 * [ ] Push code to **GitHub repository**.
 
-#### **Phase 6: Advanced Features**
+#### **Phase 5: Advanced Features**
 
 * [ ] Add **swipe gestures** for scrolling.
 * [ ] Multi-hand support.
